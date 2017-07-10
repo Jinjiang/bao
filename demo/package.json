@@ -1,0 +1,13 @@
+{
+  "name": "dabao-demo",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build": "dabao --output dist/bundle.js app.js",
+    "watch": "dabao -o dist/bundle.js --watch app.js"
+  },
+  "dependencies": {
+    "dabao": "^0.0.2"
+  }
+}
