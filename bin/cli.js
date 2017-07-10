@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const cli = require('cli')
-const Bao = require('../src/bao')
+const { Bao } = require('../src/bao')
 
 cli.parse({
   output: ['o', 'The output file path.', 'file'],
