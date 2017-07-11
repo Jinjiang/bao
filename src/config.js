@@ -2,14 +2,16 @@
  * @fileOverview
  * Generate basic webpack config.
  */
+const path = require('path')
 
 function genBasicConfig () {
   return {
-    entry: 'index.js',
+    entry: path.resolve('index.js'),
     output: {
-      path: '.',
+      path: path.resolve('.'),
       filename: 'bundle.js'
     },
+    context: path.resolve(__dirname, '../'),
     module: {
       rules: [
         { test: /\.js$/, use: { loader: 'babel-loader', options: { presets: ['env']}}, exclude: /(node_modules|bower_components)/ },
