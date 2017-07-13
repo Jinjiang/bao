@@ -11,6 +11,9 @@ function genBasicConfig () {
       path: path.resolve('.'),
       filename: 'bundle.js'
     },
+    resolve: {
+      alias: {}
+    },
     context: path.resolve(__dirname, '../'),
     module: {
       rules: [
@@ -34,7 +37,7 @@ function resolveModulePath (names) {
     return resolveModulePath([names])
   }
   const result = names.map(require.resolve)
-  console.log(names, result)
+  // console.log(names, result)
   return result
 }
 

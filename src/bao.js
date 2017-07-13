@@ -12,6 +12,7 @@ const path = require('path')
 const webpack = require('webpack')
 
 const { genBasicConfig } = require('./config')
+const { getAliasConfig } = require('./runtime-config')
 
 class Bao {
 
@@ -38,9 +39,12 @@ class Bao {
 
   _genWebpackConfig () {
     const webpackConfig = genBasicConfig()
+    const aliasConfig = getAliasConfig()
     webpackConfig.entry = this.input
     webpackConfig.output.path = path.dirname(this.output)
     webpackConfig.output.filename = path.basename(this.output)
+    webpackConfig.resolve.alias = aliasConfig
+    console.log('[alias]', aliasConfig)
     return webpackConfig
   }
 }
