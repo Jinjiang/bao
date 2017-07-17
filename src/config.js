@@ -11,9 +11,6 @@ function genBasicConfig () {
       path: path.resolve('.'),
       filename: 'bundle.js'
     },
-    resolve: {
-      alias: {}
-    },
     context: path.resolve(__dirname, '../'),
     module: {
       rules: [
@@ -28,7 +25,9 @@ function genBasicConfig () {
         { test: /\.css$/, use: [{ loader: "style-loader" }, { loader: "css-loader" }]},
         { test: /\.vue$/, use: 'vue-loader' }
       ]
-    }
+    },
+    resolve: { alias: {}},
+    plugins: []
   }
 }
 

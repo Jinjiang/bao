@@ -12,7 +12,7 @@ const path = require('path')
 const webpack = require('webpack')
 
 const { genBasicConfig } = require('./config')
-const { getAliasConfig } = require('./runtime-config')
+const { getAliasConfig, getCommonChunksConfig } = require('./runtime-config')
 
 class Bao {
 
@@ -40,13 +40,34 @@ class Bao {
   _genWebpackConfig () {
     const webpackConfig = genBasicConfig()
     const aliasConfig = getAliasConfig()
+    const commonChunksConfig = getCommonChunksConfig()
     webpackConfig.entry = this.input
     webpackConfig.output.path = path.dirname(this.output)
     webpackConfig.output.filename = path.basename(this.output)
-    webpackConfig.resolve.alias = aliasConfig
-    console.log('[alias]', aliasConfig)
+    if (isEmptyObject(aliasConfig)) {
+      webpackConfig.resolve.alias = aliasConfig
+      console.log('[alias]', aliasConfig)
+    }
+    if (isEmptyObject(commonChunksConfig)) {
+      for (const name in commonChunksConfig) {
+        // @todo: webpackConfig.entry
+        webpackConfig.plugins.push(
+          new webpack.optimize.CommonsChunkPlugin({
+            // @todo:
+            // name
+            filename,
+            minChunks: Infinity
+          })
+        )
+      }
+      console.log('[shared]', commonChunksConfig)
+    }
     return webpackConfig
   }
+}
+
+function isEmptyObject (obj) {
+  return Object.keys(obj).length === 0
 }
 
 exports.Bao = Bao
