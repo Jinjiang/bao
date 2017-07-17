@@ -44,21 +44,26 @@ class Bao {
     webpackConfig.entry = this.input
     webpackConfig.output.path = path.dirname(this.output)
     webpackConfig.output.filename = path.basename(this.output)
-    if (isEmptyObject(aliasConfig)) {
+    if (!isEmptyObject(aliasConfig)) {
       webpackConfig.resolve.alias = aliasConfig
       console.log('[alias]', aliasConfig)
     }
-    if (isEmptyObject(commonChunksConfig)) {
+    if (!isEmptyObject(commonChunksConfig)) {
+      updateEntryFromStringToMap(webpackConfig)
+      const outputPath = webpackConfig.output.path
       for (const name in commonChunksConfig) {
-        // @todo: webpackConfig.entry
-        webpackConfig.plugins.push(
-          new webpack.optimize.CommonsChunkPlugin({
-            // @todo:
-            // name
-            filename,
-            minChunks: Infinity
-          })
-        )
+        const filename = path.relative(outputPath, name)
+        if (!webpackConfig.entry[filename]) {
+          webpackConfig.entry[filename] = commonChunksConfig[name]
+          webpackConfig.plugins.push(
+            new webpack.optimize.CommonsChunkPlugin({
+              name: filename
+              minChunks: Infinity
+            })
+          )
+        } else {
+          console.warn(`[Warning] Shared filename existed! ${name}`)
+        }
       }
       console.log('[shared]', commonChunksConfig)
     }
@@ -68,6 +73,14 @@ class Bao {
 
 function isEmptyObject (obj) {
   return Object.keys(obj).length === 0
+}
+
+function updateEntryFromStringToMap (webpackConfig) {
+  if (typeof webpackConfig.entry === 'string') {
+    const entryMap = {}
+    entryMap[webpackConfig.output.filename] = webpackConfig.entry
+    webpackConfig.output.filename = '[name]'
+  }
 }
 
 exports.Bao = Bao
