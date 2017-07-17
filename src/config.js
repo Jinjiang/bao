@@ -11,19 +11,18 @@ function genBasicConfig () {
       path: path.resolve('.'),
       filename: 'bundle.js'
     },
-    context: path.resolve(__dirname, '../'),
     module: {
       rules: [
         { test: /\.js$/, use: {
-          loader: 'babel-loader',
-          options: { presets: resolveModulePath(['babel-preset-env'])}},
+          loader: resolveGlobal('babel-loader'),
+          options: { presets: resolveGlobal(['babel-preset-env'])}},
           exclude: /(node_modules|bower_components)/ },
         { test: /\.jsx$/, use: {
-          loader: 'babel-loader',
-          options: { presets: resolveModulePath(['babel-preset-env', 'babel-preset-react'])}}},
+          loader: resolveGlobal('babel-loader'),
+          options: { presets: resolveGlobal(['babel-preset-env', 'babel-preset-react'])}}},
         { test: /\.json$/, use: 'json-loader' },
-        { test: /\.css$/, use: [{ loader: "style-loader" }, { loader: "css-loader" }]},
-        { test: /\.vue$/, use: 'vue-loader' }
+        { test: /\.css$/, use: [{ loader: resolveGlobal("style-loader") }, { loader: resolveGlobal("css-loader") }]},
+        { test: /\.vue$/, use: resolveGlobal('vue-loader') }
       ]
     },
     resolve: { alias: {}},
@@ -31,13 +30,11 @@ function genBasicConfig () {
   }
 }
 
-function resolveModulePath (names) {
-  if (typeof names === 'string') {
-    return resolveModulePath([names])
+function resolveGlobal (name) {
+  if (Array.isArray(name)) {
+    return name.map(require.resolve)
   }
-  const result = names.map(require.resolve)
-  // console.log(names, result)
-  return result
+  return require.resolve(name)
 }
 
 exports.genBasicConfig = genBasicConfig

@@ -45,19 +45,22 @@ class Bao {
     webpackConfig.output.path = path.dirname(this.output)
     webpackConfig.output.filename = path.basename(this.output)
     if (!isEmptyObject(aliasConfig)) {
-      webpackConfig.resolve.alias = aliasConfig
       console.log('[alias]', aliasConfig)
+      webpackConfig.resolve.alias = aliasConfig
     }
     if (!isEmptyObject(commonChunksConfig)) {
       updateEntryFromStringToMap(webpackConfig)
+      console.log('[shared]', commonChunksConfig)
       const outputPath = webpackConfig.output.path
       for (const name in commonChunksConfig) {
-        const filename = path.relative(outputPath, name)
+        const filepath = path.resolve(outputPath, name)
+        const filename = path.relative(outputPath, filepath)
         if (!webpackConfig.entry[filename]) {
           webpackConfig.entry[filename] = commonChunksConfig[name]
           webpackConfig.plugins.push(
             new webpack.optimize.CommonsChunkPlugin({
-              name: filename
+              name: filename,
+              filename,
               minChunks: Infinity
             })
           )
@@ -65,7 +68,6 @@ class Bao {
           console.warn(`[Warning] Shared filename existed! ${name}`)
         }
       }
-      console.log('[shared]', commonChunksConfig)
     }
     return webpackConfig
   }
@@ -79,6 +81,7 @@ function updateEntryFromStringToMap (webpackConfig) {
   if (typeof webpackConfig.entry === 'string') {
     const entryMap = {}
     entryMap[webpackConfig.output.filename] = webpackConfig.entry
+    webpackConfig.entry = entryMap
     webpackConfig.output.filename = '[name]'
   }
 }
