@@ -79,5 +79,59 @@ function getCommonChunksConfig () {
   return chunks
 }
 
+/**
+ * '.dabao.entries.json'
+ * Key-value pairs about multi-entries.
+ */
+
+function readEntriesRc () {
+  if (!fs.existsSync('./.dabao.entries.json')) {
+    return {}
+  }
+  try {
+    const content = fs.readFileSync('./.dabao.entries.json')
+    return JSON.parse(content)
+  } catch (e) {
+    console.warn('[Warning] File parsing error: .dabao.entries.json')
+    console.warn(e)
+    return {}
+  }
+}
+
+function getEntriesConfig () {
+  const { entries, dist } = readEntriesRc()
+  const outputPath = path.resolve(dist || '.')
+  const entryMap = {}
+  if (!entries) {
+    return null
+  }
+  if (Array.isArray(entries)) {
+    entries.forEach(value => {
+      try {
+        const input = path.resolve(value)
+        const output = path.relative('.', input)
+        entryMap[output] = input
+      } catch (e) {
+        console.warn(`[Warning] entries parsing: ${value}`)
+        console.warn(e)
+      }
+    })
+  } else {
+    for (const key in entries) {
+      try {
+        const value = entries[key]
+        const input = path.resolve(key)
+        const output = path.relative(outputPath, path.resolve(value))
+        entryMap[output] = input
+      } catch (e) {
+        console.warn(`[Warning] entries parsing: ${key} - ${value}`)
+        console.warn(e)
+      }
+    }
+  }
+  return { entryMap, outputPath }
+}
+
 exports.getAliasConfig = getAliasConfig
 exports.getCommonChunksConfig = getCommonChunksConfig
+exports.getEntriesConfig = getEntriesConfig
