@@ -12,7 +12,11 @@ const path = require('path')
 const webpack = require('webpack')
 
 const { genBasicConfig } = require('./config')
-const { getAliasConfig, getCommonChunksConfig } = require('./runtime-config')
+const {
+  getAliasConfig,
+  getCommonChunksConfig,
+  getTargetConfig
+} = require('./runtime-config')
 
 class Bao {
 
@@ -40,12 +44,12 @@ class Bao {
   _genWebpackConfig () {
     const webpackConfig = genBasicConfig()
 
-    const entriesConfig = getEntriesConfig()
-    if (entriesConfig && !isEmptyObject(entriesConfig.entryMap)) {
-      const { entryMap, outputPath } = entriesConfig
-      console.log('[entries]', outputPath, entryMap)
-      webpackConfig.entry = entryMap
-      webpackConfig.output.path = outputPath
+    const targetConfig = getTargetConfig()
+    if (targetConfig && !isEmptyObject(targetConfig.map)) {
+      const { map, dir } = targetConfig
+      console.log('[target]', dir, map)
+      webpackConfig.entry = map
+      webpackConfig.output.path = dir
       webpackConfig.output.filename = '[name]'
     } else {
       webpackConfig.entry = this.input

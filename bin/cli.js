@@ -12,10 +12,8 @@ cli.main(function (args, options) {
   const input = args[0]
   const { output, watch } = options
 
-  if (input) {
-    const bao = new Bao({
-      input, output
-    })
-    bao.build(watch)
-  }
+  const bao = new Bao({
+    input, output
+  })
+  bao.build(watch)
 })
