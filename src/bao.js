@@ -39,15 +39,27 @@ class Bao {
 
   _genWebpackConfig () {
     const webpackConfig = genBasicConfig()
+
+    const entriesConfig = getEntriesConfig()
+    if (entriesConfig && !isEmptyObject(entriesConfig.entryMap)) {
+      const { entryMap, outputPath } = entriesConfig
+      console.log('[entries]', outputPath, entryMap)
+      webpackConfig.entry = entryMap
+      webpackConfig.output.path = outputPath
+      webpackConfig.output.filename = '[name]'
+    } else {
+      webpackConfig.entry = this.input
+      webpackConfig.output.path = path.dirname(this.output)
+      webpackConfig.output.filename = path.basename(this.output)
+    }
+
     const aliasConfig = getAliasConfig()
-    const commonChunksConfig = getCommonChunksConfig()
-    webpackConfig.entry = this.input
-    webpackConfig.output.path = path.dirname(this.output)
-    webpackConfig.output.filename = path.basename(this.output)
     if (!isEmptyObject(aliasConfig)) {
       console.log('[alias]', aliasConfig)
       webpackConfig.resolve.alias = aliasConfig
     }
+
+    const commonChunksConfig = getCommonChunksConfig()
     if (!isEmptyObject(commonChunksConfig)) {
       updateEntryFromStringToMap(webpackConfig)
       console.log('[shared]', commonChunksConfig)
