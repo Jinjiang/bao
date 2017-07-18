@@ -80,58 +80,61 @@ function getCommonChunksConfig () {
 }
 
 /**
- * '.dabao.entries.json'
+ * '.dabao.target.json'
  * Key-value pairs about multi-entries.
  */
 
-function readEntriesRc () {
-  if (!fs.existsSync('./.dabao.entries.json')) {
+function readTargetRc () {
+  if (!fs.existsSync('./.dabao.target.json')) {
     return {}
   }
   try {
-    const content = fs.readFileSync('./.dabao.entries.json')
+    const content = fs.readFileSync('./.dabao.target.json')
     return JSON.parse(content)
   } catch (e) {
-    console.warn('[Warning] File parsing error: .dabao.entries.json')
+    console.warn('[Warning] File parsing error: .dabao.target.json')
     console.warn(e)
     return {}
   }
 }
 
-function getEntriesConfig () {
-  const { entries, dist } = readEntriesRc()
-  const outputPath = path.resolve(dist || '.')
-  const entryMap = {}
-  if (!entries) {
+function getTargetConfig () {
+  const { target, dir } = readTargetRc()
+  const finalDir = path.resolve(dir || '.')
+  const finalMap = {}
+  if (!target) {
     return null
   }
-  if (Array.isArray(entries)) {
-    entries.forEach(value => {
+  if (Array.isArray(target)) {
+    target.forEach(value => {
       try {
         const input = path.resolve(value)
         const output = path.relative('.', input)
-        entryMap[output] = input
+        finalMap[output] = input
       } catch (e) {
-        console.warn(`[Warning] entries parsing: ${value}`)
+        console.warn(`[Warning] target parsing: ${value}`)
         console.warn(e)
       }
     })
   } else {
-    for (const key in entries) {
+    for (const key in target) {
       try {
-        const value = entries[key]
+        const value = target[key]
         const input = path.resolve(key)
-        const output = path.relative(outputPath, path.resolve(value))
-        entryMap[output] = input
+        const output = path.relative('.', path.resolve(value))
+        finalMap[output] = input
       } catch (e) {
-        console.warn(`[Warning] entries parsing: ${key} - ${value}`)
+        console.warn(`[Warning] target parsing: ${key} - ${value}`)
         console.warn(e)
       }
     }
   }
-  return { entryMap, outputPath }
+  return {
+    map: finalMap,
+    dir: finalDir
+  }
 }
 
 exports.getAliasConfig = getAliasConfig
 exports.getCommonChunksConfig = getCommonChunksConfig
-exports.getEntriesConfig = getEntriesConfig
+exports.getTargetConfig = getTargetConfig
