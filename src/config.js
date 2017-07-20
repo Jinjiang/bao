@@ -16,13 +16,31 @@ function genBasicConfig () {
         { test: /\.js$/, use: {
           loader: resolveGlobal('babel-loader'),
           options: { presets: resolveGlobal(['babel-preset-env'])}},
-          exclude: /(node_modules|bower_components)/ },
+          exclude: /(node_modules|bower_components)/},
         { test: /\.jsx$/, use: {
           loader: resolveGlobal('babel-loader'),
           options: { presets: resolveGlobal(['babel-preset-env', 'babel-preset-react'])}}},
-        { test: /\.json$/, use: 'json-loader' },
-        { test: /\.css$/, use: [{ loader: resolveGlobal("style-loader") }, { loader: resolveGlobal("css-loader") }]},
-        { test: /\.vue$/, use: resolveGlobal('vue-loader') }
+        { test: /\.tsx?$/, use: resolveGlobal('ts-loader')},
+        { test: /\.json$/, use: resolveGlobal('json-loader')},
+        { test: /\.css$/, use: [
+          { loader: resolveGlobal("style-loader")},
+          { loader: resolveGlobal("css-loader"), options: { importLoaders: 1 }},
+          { loader: resolveGlobal("postcss-loader"), options: {
+            plugins: [resolveGlobal('postcss-cssnext', 'autoprefixer')]}}]},
+        { test: /\.less$/, use: [
+          { loader: resolveGlobal("style-loader")},
+          { loader: resolveGlobal("css-loader"), options: { importLoaders: 1 }},
+          { loader: resolveGlobal("postcss-loader"), options: {
+            plugins: [resolveGlobal('postcss-cssnext', 'autoprefixer')]}},
+          { loader: resolveGlobal("less-loader")}]},
+        { test: /\.sass$/, use: [
+          { loader: resolveGlobal("style-loader")},
+          { loader: resolveGlobal("css-loader"), options: { importLoaders: 1 }},
+          { loader: resolveGlobal("postcss-loader"), options: {
+            plugins: [resolveGlobal('postcss-cssnext', 'autoprefixer')]}},
+          { loader: resolveGlobal("sass-loader")}]},
+        { test: /\.vue$/, use: { loader: resolveGlobal('vue-loader'), options: {
+          postcss: [resolveGlobal('postcss-cssnext', 'autoprefixer')]}}}
       ]
     },
     resolve: { alias: {}},
