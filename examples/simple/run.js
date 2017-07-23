@@ -1,4 +1,4 @@
-const { Bao } = require('../src/bao')
+const { Bao } = require('../../src/bao')
 
 const bao = new Bao({
   input: 'app.js',
