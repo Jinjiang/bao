@@ -1,0 +1,16 @@
+{
+  "name": "dabao-example-vendor",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build": "dabao --output dist/bundle.js app.js",
+    "watch": "dabao -o dist/bundle.js --watch app.js"
+  },
+  "dependencies": {
+    "dabao": "*",
+    "vue": "^2.4.2",
+    "vue-router": "^2.7.0",
+    "vuex": "^2.3.1"
+  }
+}
