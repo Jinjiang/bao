@@ -1,0 +1,4 @@
+{
+  "dir": "dist",
+  "target": ["app.js", "app2.js"]
+}
