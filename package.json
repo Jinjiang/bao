@@ -26,7 +26,6 @@
     "cli": "^1.0.1",
     "css-loader": "^0.28.4",
     "json-loader": "^0.5.4",
-    "lnk": "^1.1.0",
     "style-loader": "^0.18.2",
     "vue-loader": "^13.0.0",
     "vue-template-compiler": "^2.3.4",
