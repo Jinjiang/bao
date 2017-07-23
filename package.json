@@ -27,6 +27,7 @@
     "cli": "^1.0.1",
     "css-loader": "^0.28.4",
     "json-loader": "^0.5.4",
+    "less": "^2.7.2",
     "less-loader": "^4.0.5",
     "node-sass": "^4.5.3",
     "postcss-cssnext": "^3.0.2",

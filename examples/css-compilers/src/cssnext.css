@@ -1,0 +1,7 @@
+:root {
+--fontSize: 2rem;
+}
+
+body h1 {
+  color: var(--fontSize);
+}
