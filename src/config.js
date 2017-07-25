@@ -4,6 +4,21 @@
  */
 const path = require('path')
 
+const pathMap = {
+  babel: require.resolve('babel-loader'),
+  babelEnv: require.resolve('babel-preset-env'),
+  babelReact: require.resolve('babel-preset-react'),
+  typescript: require.resolve('ts-loader'),
+  json: require.resolve('json-loader'),
+  style: require.resolve("style-loader"),
+  css: require.resolve("css-loader"),
+  postcss: require.resolve("postcss-loader"),
+  less: require.resolve("less-loader"),
+  sass: require.resolve("sass-loader"),
+  vue: require.resolve('vue-loader')
+}
+const cssnext = require('postcss-cssnext')
+
 function genBasicConfig () {
   return {
     entry: path.resolve('index.js'),
@@ -14,46 +29,35 @@ function genBasicConfig () {
     module: {
       rules: [
         { test: /\.js$/, use: {
-          loader: resolveGlobal('babel-loader'),
-          options: { presets: resolveGlobal(['babel-preset-env'])}},
+          loader: pathMap.babel,
+          options: { presets: pathMap.babelEnv }},
           exclude: /(node_modules|bower_components)/},
         { test: /\.jsx$/, use: {
-          loader: resolveGlobal('babel-loader'),
-          options: { presets: resolveGlobal(['babel-preset-env', 'babel-preset-react'])}}},
-        { test: /\.tsx?$/, use: resolveGlobal('ts-loader')},
-        { test: /\.json$/, use: resolveGlobal('json-loader')},
+          loader: pathMap.babel,
+          options: { presets: [pathMap.babelEnv, pathMap.babelReact]}}},
+        { test: /\.tsx?$/, use: pathMap.typescript },
+        { test: /\.json$/, use: pathMap.json },
         { test: /\.css$/, use: [
-          { loader: resolveGlobal("style-loader")},
-          { loader: resolveGlobal("css-loader"), options: { importLoaders: 1 }},
-          { loader: resolveGlobal("postcss-loader"), options: {
-            plugins: () => [require('postcss-cssnext')()]}}
+          { loader: pathMap.style },
+          { loader: pathMap.css, options: { importLoaders: 1 }},
+          { loader: pathMap.postcss, options: { plugins: () => [cssnext()]}}
         ]},
         { test: /\.less$/, use: [
-          { loader: resolveGlobal("style-loader")},
-          { loader: resolveGlobal("css-loader"), options: { importLoaders: 1 }},
-          { loader: resolveGlobal("postcss-loader"), options: {
-            plugins: () => [require('postcss-cssnext')()]}},
-          { loader: resolveGlobal("less-loader")}]},
-        { test: /\.scss$/, use: [
-          { loader: resolveGlobal("style-loader")},
-          { loader: resolveGlobal("css-loader"), options: { importLoaders: 1 }},
-          { loader: resolveGlobal("postcss-loader"), options: {
-            plugins: () => [require('postcss-cssnext')()]}},
-          { loader: resolveGlobal("sass-loader")}]},
-        { test: /\.vue$/, use: { loader: resolveGlobal('vue-loader'), options: {
-          postcss: [resolveGlobal('postcss-cssnext', 'autoprefixer')]}}}
+          { loader: pathMap.style },
+          { loader: pathMap.css, options: { importLoaders: 1 }},
+          { loader: pathMap.postcss, options: { plugins: () => [cssnext()]}},
+          { loader: pathMap.less }]},
+        { test: /\.s(c|a)ss$/, use: [
+          { loader: pathMap.style },
+          { loader: pathMap.css, options: { importLoaders: 1 }},
+          { loader: pathMap.postcss, options: { plugins: () => [cssnext()]}},
+          { loader: pathMap.sass }]},
+        { test: /\.vue$/, use: { loader: pathMap.vue }}
       ]
     },
     resolve: { alias: {}},
     plugins: []
   }
-}
-
-function resolveGlobal (name) {
-  if (Array.isArray(name)) {
-    return name.map(require.resolve)
-  }
-  return require.resolve(name)
 }
 
 exports.genBasicConfig = genBasicConfig
