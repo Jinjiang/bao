@@ -1,0 +1,10 @@
+:root {
+--fontSizeH3: 1.25rem;
+}
+
+body {
+  h3 {
+    font-size: var(--fontSizeH3);
+    color: #ccc;
+  }
+}

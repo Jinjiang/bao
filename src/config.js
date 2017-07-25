@@ -25,20 +25,20 @@ function genBasicConfig () {
         { test: /\.css$/, use: [
           { loader: resolveGlobal("style-loader")},
           { loader: resolveGlobal("css-loader"), options: { importLoaders: 1 }},
-          // { loader: resolveGlobal("postcss-loader"), options: {
-          //   plugins: [resolveGlobal('postcss-cssnext', 'autoprefixer')]}}
-          ]},
+          { loader: resolveGlobal("postcss-loader"), options: {
+            plugins: () => [require('postcss-cssnext')()]}}
+        ]},
         { test: /\.less$/, use: [
           { loader: resolveGlobal("style-loader")},
           { loader: resolveGlobal("css-loader"), options: { importLoaders: 1 }},
-          // { loader: resolveGlobal("postcss-loader"), options: {
-          //   plugins: [resolveGlobal('postcss-cssnext', 'autoprefixer')]}},
+          { loader: resolveGlobal("postcss-loader"), options: {
+            plugins: () => [require('postcss-cssnext')()]}},
           { loader: resolveGlobal("less-loader")}]},
         { test: /\.scss$/, use: [
           { loader: resolveGlobal("style-loader")},
           { loader: resolveGlobal("css-loader"), options: { importLoaders: 1 }},
-          // { loader: resolveGlobal("postcss-loader"), options: {
-          //   plugins: [resolveGlobal('postcss-cssnext', 'autoprefixer')]}},
+          { loader: resolveGlobal("postcss-loader"), options: {
+            plugins: () => [require('postcss-cssnext')()]}},
           { loader: resolveGlobal("sass-loader")}]},
         { test: /\.vue$/, use: { loader: resolveGlobal('vue-loader'), options: {
           postcss: [resolveGlobal('postcss-cssnext', 'autoprefixer')]}}}
