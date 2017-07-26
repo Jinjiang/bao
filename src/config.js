@@ -52,7 +52,8 @@ function genBasicConfig () {
           { loader: pathMap.css, options: { importLoaders: 1 }},
           { loader: pathMap.postcss, options: { plugins: () => [cssnext()]}},
           { loader: pathMap.sass }]},
-        { test: /\.vue$/, use: { loader: pathMap.vue }}
+        { test: /\.vue$/, use: { loader: pathMap.vue,
+          options: { postcss: [cssnext()]}}}
       ]
     },
     resolve: { alias: {}},

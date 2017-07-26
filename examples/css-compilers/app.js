@@ -1,10 +1,18 @@
-require('./src/style.less')
-require('./src/style.sass')
-require('./src/style.scss')
+import './src/style.less'
+import './src/style.sass'
+import './src/style.scss'
 
-require('./src/autoprefixer.css')
-require('./src/cssnext.css')
-require('./src/postcss.less')
-require('./src/postcss.scss')
+import './src/autoprefixer.css'
+import './src/cssnext.css'
+import './src/postcss.less'
+import './src/postcss.scss'
 
 console.log('CSS Compilers')
+
+import Vue from 'vue'
+import Foo from './src/foo.vue'
+
+new Vue({
+  el: '#app',
+  render: h => h(Foo)
+})
