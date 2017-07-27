@@ -1,5 +1,5 @@
 const React = {
-  createElement: () => '[virtual-DOM]'
-}
+  createElement: () => '[virtual-DOM]',
+};
 
-module.exports = <div>Hello World</div>
+module.exports = <div>Hello World</div>;

@@ -1,2 +1,3 @@
-const Bar = require('./bar.jsx')
-console.log(Bar)
+import Bar from './bar';
+
+console.log(Bar);

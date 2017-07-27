@@ -1,7 +1,7 @@
-const Vue = require('vue')
-const Vuex = require('vuex')
-const VueRouter = require('vue-router')
-console.log(Vue, Vuex, VueRouter)
+import Vue from 'vue';
+import Vuex from 'vuex';
+import VueRouter from 'vue-router';
+import { foo } from './foo';
 
-const { foo } = require('./foo')
-foo()
+console.log(Vue, Vuex, VueRouter);
+foo();

@@ -1,2 +1,5 @@
-const { foo } = require('x')
-console.log(foo)
+/* eslint-disable */
+import { foo } from 'x';
+/* eslint-enable */
+
+console.log(foo);

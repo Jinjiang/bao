@@ -1,2 +1,3 @@
-const Foo = require('./foo.vue')
-console.log(Foo)
+import Foo from './foo.vue';
+
+console.log(Foo);

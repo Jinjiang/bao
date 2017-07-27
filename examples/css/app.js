@@ -1,2 +1,3 @@
-require('./style.css')
-console.log('CSS')
+import './style.css';
+
+console.log('CSS');

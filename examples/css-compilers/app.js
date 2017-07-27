@@ -1,18 +1,20 @@
-import './src/style.less'
-import './src/style.sass'
-import './src/style.scss'
+import Vue from 'vue';
 
-import './src/autoprefixer.css'
-import './src/cssnext.css'
-import './src/postcss.less'
-import './src/postcss.scss'
+import './src/style.less';
+import './src/style.sass';
+import './src/style.scss';
 
-console.log('CSS Compilers')
+import './src/autoprefixer.css';
+import './src/cssnext.css';
+import './src/postcss.less';
+import './src/postcss.scss';
 
-import Vue from 'vue'
-import Foo from './src/foo.vue'
+import Foo from './src/foo.vue';
 
-new Vue({
+console.log('CSS Compilers');
+
+const app = new Vue({
   el: '#app',
-  render: h => h(Foo)
-})
+  render: h => h(Foo),
+});
+console.log(app);

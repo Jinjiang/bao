@@ -1,2 +1,3 @@
-const { foo } = require('./foo')
-foo()
+import { foo } from './foo';
+
+foo();
