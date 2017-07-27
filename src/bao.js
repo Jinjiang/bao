@@ -36,6 +36,10 @@ class Bao {
       })
     } else {
       compiler.run((err, stats) => {
+        // console.log(err)
+        if (stats && stats.compilation && stats.compilation.errors) {
+          stats.compilation.errors.forEach(err => console.log(err))
+        }
         console.log('[done]')
       })
     }

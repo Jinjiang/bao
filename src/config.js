@@ -10,11 +10,12 @@ const pathMap = {
   babelReact: require.resolve('babel-preset-react'),
   typescript: require.resolve('ts-loader'),
   json: require.resolve('json-loader'),
-  style: require.resolve("style-loader"),
-  css: require.resolve("css-loader"),
-  postcss: require.resolve("postcss-loader"),
-  less: require.resolve("less-loader"),
-  sass: require.resolve("sass-loader"),
+  eslint: require.resolve('eslint-loader'),
+  style: require.resolve('style-loader'),
+  css: require.resolve('css-loader'),
+  postcss: require.resolve('postcss-loader'),
+  less: require.resolve('less-loader'),
+  sass: require.resolve('sass-loader'),
   vue: require.resolve('vue-loader')
 }
 const cssnext = require('postcss-cssnext')
@@ -28,15 +29,23 @@ function genBasicConfig () {
     },
     module: {
       rules: [
-        { test: /\.js$/, use: {
+
+        // pre loader: eslint
+        { enforce: 'pre',
+          test: /\.jsx?$/,
+          loader: pathMap.eslint,
+          options: { configFile: path.resolve(__dirname, '.eslintrc.json')},
+          exclude: /node_modules/ },
+
+        // loaders for javascript
+        { test: /\.jsx?$/, use: {
           loader: pathMap.babel,
-          options: { presets: pathMap.babelEnv }},
-          exclude: /(node_modules|bower_components)/},
-        { test: /\.jsx$/, use: {
-          loader: pathMap.babel,
-          options: { presets: [pathMap.babelEnv, pathMap.babelReact]}}},
+          options: { presets: [pathMap.babelEnv, pathMap.babelReact]}},
+          exclude: /(node_modules|bower_components)/ },
         { test: /\.tsx?$/, use: pathMap.typescript },
         { test: /\.json$/, use: pathMap.json },
+
+        // loaders for css
         { test: /\.css$/, use: [
           { loader: pathMap.style },
           { loader: pathMap.css, options: { importLoaders: 1 }},
@@ -52,11 +61,16 @@ function genBasicConfig () {
           { loader: pathMap.css, options: { importLoaders: 1 }},
           { loader: pathMap.postcss, options: { plugins: () => [cssnext()]}},
           { loader: pathMap.sass }]},
+
+        // loaders for vue
         { test: /\.vue$/, use: { loader: pathMap.vue,
           options: { postcss: [cssnext()]}}}
       ]
     },
-    resolve: { alias: {}},
+    resolve: {
+      alias: {},
+      extensions: ['.js', '.jsx']
+    },
     plugins: []
   }
 }
