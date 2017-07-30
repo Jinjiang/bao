@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "build": "dabao",
-    "watch": "dabao -w"
+    "dev": "dabao --dev"
   },
   "dependencies": {
     "vue": "^2.4.2",

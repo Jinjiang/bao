@@ -3,6 +3,7 @@
  * Generate basic webpack config.
  */
 const path = require('path')
+const webpack = require('webpack')
 
 const pathMap = {
   babel: require.resolve('babel-loader'),
@@ -19,7 +20,11 @@ const pathMap = {
 }
 const cssnext = require('postcss-cssnext')
 
-function genBasicConfig () {
+function genBasicConfig (isDevMode) {
+  return isDevMode ? genDevBasicConfig() : genProdBasicConfig()
+}
+
+function genDevBasicConfig () {
   return {
     entry: path.resolve('index.js'),
     output: {
@@ -59,6 +64,23 @@ function genBasicConfig () {
     resolve: { alias: {}},
     plugins: []
   }
+}
+
+function genProdBasicConfig () {
+  const config = genDevBasicConfig()
+  config.plugins.push(genEnvPlugin())
+  config.plugins.push(genMinPlugin())
+  return config
+}
+
+function genEnvPlugin () {
+  return new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify('production'),
+  })
+}
+
+function genMinPlugin () {
+  return new webpack.optimize.UglifyJsPlugin()
 }
 
 exports.genBasicConfig = genBasicConfig

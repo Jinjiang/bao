@@ -5,7 +5,7 @@
  * Bao#input
  * Bao#output
  *
- * Bao#build(isWatchMode)
+ * Bao#build(isDevMode)
  */
 
 const path = require('path')
@@ -26,11 +26,11 @@ class Bao {
     this.output = path.resolve(output || 'bundle.js')
   }
 
-  build (isWatchMode) {
-    const webpackConfig = this._genWebpackConfig()
+  build (isDevMode) {
+    const webpackConfig = this._genWebpackConfig(isDevMode)
     const compiler = webpack(webpackConfig)
     // @todo: error handling & stats info
-    if (isWatchMode) {
+    if (isDevMode) {
       compiler.watch({}, (err, stats) => {
         console.log('[updated]')
       })
@@ -41,8 +41,8 @@ class Bao {
     }
   }
 
-  _genWebpackConfig () {
-    const webpackConfig = genBasicConfig()
+  _genWebpackConfig (isDevMode) {
+    const webpackConfig = genBasicConfig(isDevMode)
 
     const targetConfig = getTargetConfig()
     if (targetConfig && !isEmptyObject(targetConfig.map)) {
