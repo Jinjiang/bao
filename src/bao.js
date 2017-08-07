@@ -51,7 +51,7 @@ class Bao {
       console.log('[target]', dir, map)
       webpackConfig.entry = map
       webpackConfig.output.path = dir
-      webpackConfig.output.filename = '[name]'
+      webpackConfig.output.filename = this.hashname ? '[name].[hash].js' : '[name].js'
     } else {
       const outputInfo = path.parse(this.output)
       webpackConfig.entry = this.input
@@ -73,7 +73,7 @@ class Bao {
 
     const commonChunksConfig = getCommonChunksConfig()
     if (!isEmptyObject(commonChunksConfig)) {
-      updateEntryFromStringToMap(webpackConfig)
+      updateEntryFromStringToMap(webpackConfig, this.hashname)
       console.log('[shared]', commonChunksConfig)
       const outputPath = webpackConfig.output.path
       for (const name in commonChunksConfig) {
@@ -84,7 +84,7 @@ class Bao {
           webpackConfig.plugins.push(
             new webpack.optimize.CommonsChunkPlugin({
               name: filename,
-              filename,
+              filename: `${filename}.js`,
               minChunks: Infinity
             })
           )
@@ -101,21 +101,14 @@ function isEmptyObject (obj) {
   return Object.keys(obj).length === 0
 }
 
-function updateEntryFromStringToMap (webpackConfig) {
+function updateEntryFromStringToMap (webpackConfig, needHashname) {
   if (typeof webpackConfig.entry === 'string') {
     const entryMap = {}
-    entryMap[webpackConfig.output.filename] = webpackConfig.entry
+    const outputInfo = path.parse(webpackConfig.output.filename)
+    entryMap[outputInfo.name] = webpackConfig.entry
     webpackConfig.entry = entryMap
-    webpackConfig.output.filename = '[name]'
+    webpackConfig.output.filename = needHashname ? '[name].[hash].js' : '[name].js'
   }
-}
-
-function hasJSExtName (filename) {
-  return filename.match(/\.js$/)
-}
-
-function removeJSExtName (filename) {
-  return filename.replace(/\.js$/, '')
 }
 
 exports.Bao = Bao

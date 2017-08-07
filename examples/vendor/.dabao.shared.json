@@ -1,3 +1,3 @@
 {
-  "vendor.js": ["vue", "vuex", "vue-router"]
+  "vendor": ["vue", "vuex", "vue-router"]
 }

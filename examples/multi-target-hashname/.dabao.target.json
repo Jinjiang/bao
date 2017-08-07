@@ -1,0 +1,5 @@
+{
+  "dir": "dist",
+  "hashname": true,
+  "target": ["app.js", "app2.js"]
+}

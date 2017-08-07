@@ -1,4 +1,4 @@
-# Multi-Target Example
+# Multi-Target Hashname Example
 
 ## Config
 

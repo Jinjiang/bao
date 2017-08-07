@@ -60,23 +60,24 @@ function readCommonChunksRc () {
 
 function getCommonChunksConfig () {
   const chunks = readCommonChunksRc()
+  const finalMap = {}
   for (const filename in chunks) {
+    const name = trimJSExtName(filename)
     const moduleNames = chunks[filename]
     if (typeof moduleNames === 'string') {
       const moduleName = moduleNames
-      chunks[filename] = [moduleName]
+      finalMap[name] = [moduleName]
     } else if (Array.isArray(moduleNames)) {
-      chunks[filename] = moduleNames.filter(moduleName => typeof moduleName === 'string')
-      if (chunks[filename].length === 0) {
+      finalMap[name] = moduleNames.filter(moduleName => typeof moduleName === 'string')
+      if (finalMap[name].length === 0) {
         console.warn(`[Warning] Shared parsing: no legal module name found in ${filename}`)
-        delete chunks[filename]
+        delete finalMap[name]
       }
     } else {
       console.warn(`[Warning] Shared parsing: invalid config for ${filename}`)
-      delete chunks[filename]
     }
   }
-  return chunks
+  return finalMap
 }
 
 /**
@@ -110,7 +111,7 @@ function getTargetConfig () {
       try {
         const input = path.resolve(value)
         const output = path.relative('.', input)
-        finalMap[output] = input
+        finalMap[trimJSExtName(output)] = input
       } catch (e) {
         console.warn(`[Warning] target parsing: ${value}`)
         console.warn(e)
@@ -122,7 +123,7 @@ function getTargetConfig () {
         const value = target[key]
         const input = path.resolve(key)
         const output = path.relative('.', path.resolve(value))
-        finalMap[output] = input
+        finalMap[trimJSExtName(output)] = input
       } catch (e) {
         console.warn(`[Warning] target parsing: ${key} - ${value}`)
         console.warn(e)
@@ -133,6 +134,10 @@ function getTargetConfig () {
     map: finalMap,
     dir: finalDir
   }
+}
+
+function trimJSExtName (filename) {
+  return filename.replace(/\.js$/, '')
 }
 
 exports.getAliasConfig = getAliasConfig
