@@ -1,0 +1,13 @@
+{
+  "name": "dabao-example-simple-banner",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build": "dabao app.js -o dist/bundle.js",
+    "dev": "dabao app.js --dev --output dist/bundle.js"
+  },
+  "devDependencies": {
+    "dabao": "*"
+  }
+}

@@ -16,7 +16,7 @@ function readAliasRc () {
     return {}
   }
   try {
-    const content = fs.readFileSync('./.dabao.alias.json')
+    const content = fs.readFileSync('./.dabao.alias.json', { encoding: 'utf-8' })
     return JSON.parse(content)
   } catch (e) {
     console.warn('[Warning] File parsing error: .dabao.alias.json')
@@ -49,7 +49,7 @@ function readCommonChunksRc () {
     return {}
   }
   try {
-    const content = fs.readFileSync('./.dabao.shared.json')
+    const content = fs.readFileSync('./.dabao.shared.json', { encoding: 'utf-8' })
     return JSON.parse(content)
   } catch (e) {
     console.warn('[Warning] File parsing error: .dabao.shared.json')
@@ -90,7 +90,7 @@ function readTargetRc () {
     return {}
   }
   try {
-    const content = fs.readFileSync('./.dabao.target.json')
+    const content = fs.readFileSync('./.dabao.target.json', { encoding: 'utf-8' })
     return JSON.parse(content)
   } catch (e) {
     console.warn('[Warning] File parsing error: .dabao.target.json')
@@ -140,6 +140,19 @@ function trimJSExtName (filename) {
   return filename.replace(/\.js$/, '')
 }
 
+/**
+ * '.dabao.banner'
+ * Add Banner to each generated file.
+ */
+
+function getBannerConfig () {
+  const filename = './.dabao.banner'
+  if (fs.existsSync(filename)) {
+    return fs.readFileSync(filename, { encoding: 'utf-8' })
+  }
+}
+
 exports.getAliasConfig = getAliasConfig
 exports.getCommonChunksConfig = getCommonChunksConfig
 exports.getTargetConfig = getTargetConfig
+exports.getBannerConfig = getBannerConfig

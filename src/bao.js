@@ -15,7 +15,8 @@ const { genBasicConfig } = require('./config')
 const {
   getAliasConfig,
   getCommonChunksConfig,
-  getTargetConfig
+  getTargetConfig,
+  getBannerConfig
 } = require('./runtime-config')
 
 class Bao {
@@ -93,6 +94,13 @@ class Bao {
         }
       }
     }
+
+    const banner = getBannerConfig()
+    if (banner) {
+      console.log('[banner] loaded')
+      webpackConfig.plugins.push(new webpack.BannerPlugin({ banner, raw: true }))
+    }
+
     return webpackConfig
   }
 }
