@@ -1,0 +1,13 @@
+{
+  "name": "dabao-example-simple-hashname",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build": "dabao app.js -o dist/bundle.js --hashname",
+    "dev": "dabao app.js --dev --output dist/bundle.js --hashname"
+  },
+  "devDependencies": {
+    "dabao": "*"
+  }
+}

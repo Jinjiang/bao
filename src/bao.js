@@ -21,9 +21,10 @@ const {
 class Bao {
 
   constructor (config) {
-    const { input, output } = config
+    const { input, output, hashname } = config
     this.input = path.resolve(input || 'index.js')
     this.output = path.resolve(output || 'bundle.js')
+    this.hashname = !!hashname
   }
 
   build (isDevMode) {
@@ -52,9 +53,16 @@ class Bao {
       webpackConfig.output.path = dir
       webpackConfig.output.filename = '[name]'
     } else {
+      const outputInfo = path.parse(this.output)
       webpackConfig.entry = this.input
       webpackConfig.output.path = path.dirname(this.output)
-      webpackConfig.output.filename = path.basename(this.output)
+      webpackConfig.output.filename = path.basename(`${
+        outputInfo.name
+      }${
+        this.hashname ? '.[hash]' : ''
+      }${
+        outputInfo.ext
+      }`)
     }
 
     const aliasConfig = getAliasConfig()
@@ -100,6 +108,14 @@ function updateEntryFromStringToMap (webpackConfig) {
     webpackConfig.entry = entryMap
     webpackConfig.output.filename = '[name]'
   }
+}
+
+function hasJSExtName (filename) {
+  return filename.match(/\.js$/)
+}
+
+function removeJSExtName (filename) {
+  return filename.replace(/\.js$/, '')
 }
 
 exports.Bao = Bao
