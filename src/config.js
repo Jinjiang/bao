@@ -24,7 +24,7 @@ function genBasicConfig (isDevMode) {
   return isDevMode ? genDevBasicConfig() : genProdBasicConfig()
 }
 
-function genDevBasicConfig () {
+function initConfig () {
   return {
     entry: path.resolve('index.js'),
     output: {
@@ -66,8 +66,14 @@ function genDevBasicConfig () {
   }
 }
 
+function genDevBasicConfig() {
+  const config = initConfig()
+  config.devtool = 'inline-source-map'
+  return config
+}
+
 function genProdBasicConfig () {
-  const config = genDevBasicConfig()
+  const config = initConfig()
   config.plugins.push(genEnvPlugin())
   config.plugins.push(genMinPlugin())
   return config
