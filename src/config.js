@@ -16,7 +16,8 @@ const pathMap = {
   postcss: require.resolve("postcss-loader"),
   less: require.resolve("less-loader"),
   sass: require.resolve("sass-loader"),
-  vue: require.resolve('vue-loader')
+  vue: require.resolve('vue-loader'),
+  file: require.resolve('file-loader')
 }
 const cssnext = require('postcss-cssnext')
 
@@ -58,7 +59,9 @@ function initConfig () {
           { loader: pathMap.postcss, options: { plugins: () => [cssnext()]}},
           { loader: pathMap.sass }]},
         { test: /\.vue$/, use: { loader: pathMap.vue,
-          options: { postcss: [cssnext()]}}}
+          options: { postcss: [cssnext()]}}},
+        { test: /\.(png|svg|jpg|gif)$/, use: { loader: pathMap.file }},
+        { test: /\.(woff|woff2|eot|ttf|otf)$/, use: { loader: pathMap.file }}
       ]
     },
     resolve: { alias: {}},
