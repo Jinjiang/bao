@@ -10,6 +10,8 @@ Today's web bundling job is too fragmented, over-designed and hard to learn. Eac
 
 You can read [getting started](getting-started.md) to begin.
 
+The name **"Dabao"** means "packaging" (and also means "takeaway") in [Chinese Pinyin](https://zh.wikipedia.org/wiki/打包).
+
 ## Principles
 
 The keypoint of **Dabao** is radical tradeoffs between necessity and fragmentation. It locks some doors which seems easily to be added but hard to maintain and hard to communicate/collaborate with other projects. At the same time the requirements under them could be solved in another way more clear and maintainable without complicating webpack config.
