@@ -3,7 +3,7 @@
 * [Installation](installation.md)
 * [What is Dabao?](intro.md)
 * [Getting Started](getting-started.md)
-* [JS Syntax](javascript.md)
+* [ES Syntax](javascript.md)
 * JS Frameworks
 * CSS Dialects
 * CSS Syntax
