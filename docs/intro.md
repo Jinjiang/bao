@@ -2,17 +2,17 @@
 
 _Dabao_ is a tool to build JS bundle of web apps easily and simple, which is based on [webpack](https://webpack.js.org/) currently.
 
+The name **"Dabao"** means "packaging" (and also means "takeaway") in [Chinese Pinyin](https://zh.wikipedia.org/wiki/打包).
+
 ## Background
 
 Today's web bundling job is too fragmented, over-designed and hard to learn. Each repo has its own special complex bundle config.
 
 _Dabao_ is born to bring a simpler way to config webpack to make it easy to learn, read, create and maintain.
 
-And we focus on web app bundling, especially in teamwork. which means it may not be useful very much for JS lib or personal web app.
+And we focus on web app bundling, especially in teamwork. which means it may not be very much useful to JS lib or personal web app.
 
 You can read [getting started](getting-started.md) to begin.
-
-The name **"Dabao"** means "packaging" (and also means "takeaway") in [Chinese Pinyin](https://zh.wikipedia.org/wiki/打包).
 
 ## Principles
 
