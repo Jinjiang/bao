@@ -4,7 +4,7 @@
 * [What is Dabao?](intro.md)
 * [Getting Started](getting-started.md)
 * [ES Syntax](javascript.md)
-* JS Frameworks
+* [JS Frameworks](js-frameworks.md)
 * CSS Dialects
 * CSS Syntax
 * Alias
