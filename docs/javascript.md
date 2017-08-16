@@ -8,7 +8,11 @@ We choose `babel-preset-env` which includes `babel-preset-2015`, `babel-preset-2
 
 ### Why Babel?
 
-Babel is one the most popular JS compilers...
+Babel is one the most popular JS compilers. So we choose Babel which is easy to understand.
+
+### Why `babel-preset-env`? My browser has supported ES6.
+
+There are quite amount of users using browser without ES6/7 support. On consideration of common situation first, Dabao chooses `babel-preset-env` which will compiles all new stable syntax into ES5. And it won't cause obvious side affects in new browsers which has support ES6/7. It even also let developers reproduce and discuss the ways workaround with each others under the same Babel config when they suffer runtime bugs.
 
 ### What Syntax We May Know But NOT Supported in Dabao?
 
@@ -19,4 +23,4 @@ Note: We will consider make a versioning issue to keep the preset upgrading in t
 
 ## Supporting React (JSX) and Vue
 
-Dabao also supports React (JSX) and Vue. Check [JS Frameworks](js-frameworks.md) for more.
+Dabao also supports React (JSX) and Vue syntax. Check [JS Frameworks](js-frameworks.md) for more.
