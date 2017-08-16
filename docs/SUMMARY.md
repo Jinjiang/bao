@@ -5,7 +5,7 @@
 * [Getting Started](getting-started.md)
 * [ES Syntax](javascript.md)
 * [JS Frameworks](js-frameworks.md)
-* CSS Dialects
+* [CSS Dialects](css-dialects.md)
 * CSS Syntax
 * Alias
 * Multiple Targets
