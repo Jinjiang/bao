@@ -6,7 +6,7 @@
 * [ES Syntax](javascript.md)
 * [JS Frameworks](js-frameworks.md)
 * [CSS Dialects](css-dialects.md)
-* CSS Syntax
+* [CSS Syntax](css.md)
 * Alias
 * Multiple Targets
 * Common Chunks
