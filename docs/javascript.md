@@ -24,3 +24,7 @@ Note: We will consider make a versioning issue to keep the preset upgrading in t
 ## Supporting React (JSX) and Vue
 
 Dabao also supports React (JSX) and Vue syntax. Check [JS Frameworks](js-frameworks.md) for more.
+
+## Using TypeScript
+
+We alao put this part into [JS Frameworks](js-frameworks.md) guide because it has some collaborations with them.

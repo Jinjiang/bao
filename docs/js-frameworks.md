@@ -49,4 +49,14 @@ It will generate a file which includes `React.createElement("div",null,"Hello Wo
 
 The whole demo has been [here](https://github.com/Jinjiang/dabao/tree/master/examples/react).
 
+## TypeScript
+
+TypeScript is not a JS framework exactly. But we put this part here because besides with `*.ts` files on their own, Dabao could also parse:
+
+* in Angular with `*.tx` files
+* in React with `*.tsx` files or `*.ts` files
+* in Vue with `<script lang="typescript">` in `*.vue` files
+
+So you can write TypeScript just for free in almost all situations.
+
 Next, we will talk about supporting [CSS dialects](./css-dialects.md).
