@@ -1,4 +1,4 @@
-# ES Syntax
+# JavaScript
 
 ## Using Babel
 
@@ -21,10 +21,63 @@ There are quite amount of users using browser without ES6/7 support. On consider
 
 Note: We will consider make a versioning issue to keep the preset upgrading in the future.
 
-## Supporting React (JSX) and Vue
+## TypeScript
 
-Dabao also supports React (JSX) and Vue syntax. Check [JS Frameworks](js-frameworks.md) for more.
+TypeScript is not a JS framework exactly. But we put this part here because besides with `*.ts` files on their own, Dabao could also parse:
 
-## Using TypeScript
+* in Angular with `*.tx` files
+* in React with `*.tsx` files or `*.ts` files
+* in Vue with `<script lang="typescript">` in `*.vue` files
 
-We alao put this part into [JS Frameworks](js-frameworks.md) guide because it has some collaborations with them.
+So you can write TypeScript just for free in almost all situations.
+
+## Vue (SFC)
+
+Dabao could load `*.vue` files with [`vue-loader`](https://vue-loader.vuejs.org/) by default for [Vue.js](https://vuejs.org/).
+
+You can freely `import` any `*.vue` files as normal. For example:
+
+``` js
+// app.js
+const Foo = require('./foo.vue')
+console.log(Foo)
+```
+
+``` html
+<!-- foo.vue -->
+<template>
+  <div>Hello World</div>
+</template>
+```
+
+And run:
+
+``` bash
+dabao app.js -o dist/bundle.js
+```
+
+will generate a bundle which has converted `foo.vue` into component definition in JavaScript.
+
+The whole demo has been [here](https://github.com/Jinjiang/dabao/tree/master/examples/vue).
+
+## JSX (React)
+
+Dabao could parse `*.jsx` file into JavaScript by converting tags into `React.createElement(...)` because it uses `babel-preset-react` at the same time. For example:
+
+``` js
+const Bar = require('./bar.jsx')
+console.log(Bar)
+```
+
+``` jsx
+// const React = { // for testing
+//   createElement: () => '[virtual-DOM]'
+// }
+module.exports = <div>Hello World</div>
+```
+
+It will generate a file which includes `React.createElement("div",null,"Hello World")`.
+
+The whole demo has been [here](https://github.com/Jinjiang/dabao/tree/master/examples/react).
+
+Next, we will talk about [CSS](./css.md).

@@ -3,8 +3,7 @@
 * [Installation](installation.md)
 * [What is Dabao?](intro.md)
 * [Getting Started](getting-started.md)
-* [ES Syntax](javascript.md)
-* [JS Frameworks](js-frameworks.md)
+* [JavaScript](javascript.md)
 * [CSS](css.md)
 * [Alias](alias.md)
 * Multiple Targets
