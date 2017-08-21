@@ -78,5 +78,3 @@ CSS Modules and Aphrodite are also popular as well but they don't need a pre-pre
 ### Why NOT Other Dialect?
 
 Sorry for that. Maybe that's not popular enough to break simple which Dabao is keeping for. However of course any other opinion is welcome.
-
-Next we will introduce more Dabao config for very common situations. Setting [`alias`](./alias.md) is of course one of them.

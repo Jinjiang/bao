@@ -79,5 +79,3 @@ module.exports = <div>Hello World</div>
 It will generate a file which includes `React.createElement("div",null,"Hello World")`.
 
 The whole demo has been [here](https://github.com/Jinjiang/dabao/tree/master/examples/react).
-
-Next, we will talk about [CSS](./css.md).

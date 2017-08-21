@@ -74,5 +74,3 @@ npx dabao app.js -o dist/bundle.js
 ```
 
 That works the same.
-
-Next, we will see how _Dabao_ makes [new ES syntax](javascript.md) works in all morden browsers.
